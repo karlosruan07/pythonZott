@@ -10,3 +10,9 @@ def index(request):
     """
     return render(request, 'arquivos_html/index.html')
     
+    
+def teste2(request):
+    """
+    docstring
+    """
+    return HttpResponse('<h1>Teste 2</h1>')

@@ -1,11 +1,19 @@
+
+{% load static %} <!--Carrega os arquivos da páginas estáticas-->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!--Não esquecer das aspas simples-->
+
     <title>index</title>
 </head>
 <body>
+    <img id="img" src="{% static 'img/django.png' %}" width="200" alt="">
     <h1>funcionou !</h1>
 </body>
 </html>
+
