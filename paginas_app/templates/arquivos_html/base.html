@@ -1,0 +1,59 @@
+
+{% load static %} <!--Carrega os arquivos da páginas estáticas-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> <!--Não esquecer das aspas simples-->
+
+    {% block titulo %}
+    <title>index</title>
+    {% endblock %}
+
+</head>
+<body>
+
+    <img id="img" src="{% static 'img/django.png' %}" width="200" alt="">
+    {% block menu %}
+    <div class="bg-dark">
+        Bloco de menu !
+    </div>
+    {% endblock %}
+
+    {% block destaque %}
+    <div class="bg-secundary">
+        Bloco de Destaque !
+    </div>  
+    {% endblock %}
+
+    
+    <div class="container"> <!--Recomendado dexar a tag django dentro dq div para não escrever ela novamente.-->
+        {% block conteudo %}
+        <h1>Conteúdo principal !</h1>
+        {% endblock %}
+    </div> 
+    
+
+    {% block rodape %}
+    <div class="bg-ligth">
+        &copy; Rodapé !
+    </div>
+    {% endblock %}
+    
+
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js.map' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js.map' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js.map' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js.map' %}"></script>
+    <script src="{% static 'js/teste.js' %}"></script>
+
+</body>
+</html>
+

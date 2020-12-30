@@ -8,11 +8,25 @@ def index(request):
     """
     docstring
     """
-    return render(request, 'arquivos_html/index.html')
+    return render(request, 'arquivos_html/base.html')
     
-    
+def sobre(request):
+    """
+    docstring
+    """
+    return render(request, 'arquivos_html/sobre.html')
+
+
+
+
+
+
+
+
+
+
 def teste2(request):
     """
     docstring
     """
-    return HttpResponse('<h1>Teste 2</h1>')
+    return HttpResponse('<h1>TEste</h1>')
