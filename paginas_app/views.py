@@ -16,9 +16,11 @@ def sobre(request):
     """
     return render(request, 'arquivos_html/sobre.html')
 
+def registros(request):
+    return render(request, 'arquivos_html/registros.html')
 
-
-
+def login(request):
+    return render(request, 'arquivos_html/login.html')
 
 
 

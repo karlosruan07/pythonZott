@@ -1,10 +1,13 @@
 
 from django.urls import path
 from . import views
-from paginas_app.views import index, teste2, sobre
+from paginas_app.views import index, teste2, sobre, registros, login
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('teste2/', views.teste2),#não esquecer da barra para completar a url
-    path('sobre/', views.sobre)
+    path('sobre/', views.sobre, name='sobre'),
+    path('registros/',views.registros, name='registros'),
+    path('login/', views.login, name='login'),
+
 ]

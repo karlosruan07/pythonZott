@@ -16,12 +16,77 @@
 </head>
 <body>
 
-    <img id="img" src="{% static 'img/django.png' %}" width="200" alt="">
     {% block menu %}
-    <div class="bg-dark">
-        Bloco de menu !
-    </div>
+    
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-light">
+        <!-- inicia o menu -->
+        <div class="container"></div>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarSupportedContent"
+        >
+            <ul class="navbar-nav">
+                <!-- Inicia uma lista -->
+
+                <li>
+                    <a href=" {% url 'index' %}" class="nav-link">Home</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
+                </li>
+
+                <!-- O # siginifica que não linka para lugar nenhum -->
+
+
+
+                <!-- <li class="dropdown">
+                    <a  href="#"
+                        class="nav-link dropdown-toggle"
+                        data-target="dropdown"
+                    >Gerenciar Hospitais</a>
+
+                        <ul class="dropdown">
+                            
+                                <li><a href="#" class=" dropdown-item">Inserir Hospitais</a></li>
+                                    <li class="dropdown-divider" ></li>
+                                <li><a href="" class="dropdown-item" >Editar Hospitais</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a href="" class="dropdown-item" >Excluir Hospitais</a></li>
+                                
+                        </ul>
+                </li> -->
+
+                
+                    <a
+                        href="{% url 'registros' %}"
+                        class="nav-link"
+                    >Registros</a>  <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
+                </li>
+
+                <li>
+                    <a
+                        href=" {% url 'login' %} "
+                        class="nav-link"
+                    >Sobre</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
+                </li>
+
+                <li>
+                    <a
+                        href=" {% url 'login' %} "
+                        class="nav-link"
+                    >Login</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
+                </li>
+            </ul><!--Fim do colapse-->
+        </div><!--Fim do container-->
+    </nav>
+
+    <!-- Finaliza o menu -->
     {% endblock %}
+
+    <a href=" {% url 'index' %} "> <img id="img" src="{% static 'img/django.png' %}" width="200" alt=""></a>
 
     {% block destaque %}
     <div class="bg-secundary">
@@ -33,6 +98,7 @@
     <div class="container"> <!--Recomendado dexar a tag django dentro dq div para não escrever ela novamente.-->
         {% block conteudo %}
         <h1>Conteúdo principal !</h1>
+        <a href="#"><input type="button" value="Clik Aqui ! "></a>
         {% endblock %}
     </div> 
     
