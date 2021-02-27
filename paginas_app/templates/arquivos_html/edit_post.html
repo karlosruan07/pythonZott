@@ -1,0 +1,9 @@
+
+{% extends 'arquivos_html/base.html' %}
+{% block conteudo %}
+    <h2>Edição de post !</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn-default">Salvar</button>
+    </form>
+{% endblock %}

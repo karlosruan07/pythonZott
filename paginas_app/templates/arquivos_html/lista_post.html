@@ -1,0 +1,42 @@
+
+<!-- {% extends 'arquivos_html/base.html' %}
+
+{% block menu %} -->
+
+{% for post in posts %}
+    <div class="post">
+        <div class="date">
+            <h2 id="autor"> Autor: {{post.author}} </h2>
+                <h4>Publicado em : {{post.created_date}}</h4>
+                    </div>
+                    <h4><a href="{% url 'detalhe_post' pk=post.pk %}">{{ post.title }}</a></h4> <!--url detail cria uma url automaticamente, o pk é relacionado a chave primaria -->
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+    {% endfor %}
+
+ {% endblock %}
+
+
+ 
+
+<!--{% for post in posts %}
+
+<table>
+    <thead>
+      <tr>
+          <th>Autor</th>
+          <th>Data de Criação</th>
+          <th>Título</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>{{post.author}}</td>
+        <td>{{post.created_date}}</td>
+        <td>{{ post.title }}</td>
+      </tr>
+    </tbody>
+</table>
+
+{% endfor %} -->

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--x-x-x-x-x-x  IMPORTANDO OS ARQUIVOS E ESTILIZAÇÃO DO MATERIALIZE -x-x-x-x-x-x-->
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    <!--<link rel="stylesheet" href="{% static 'css/materialize.css' %}">-->
+
+    <title>Listar 2</title>
+</head>
+<body>
+    
+<!-- <h1>{{ cont }}</h1> -->
+
+<!-- <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>  
+<a class="waves-effect waves-light btn-small">Button</a>
+<a class="waves-effect waves-light btn-small"><i class="material-icons left">cloud</i>button</a>
+<a class="waves-effect waves-light btn-small"><i class="material-icons right">cloud</i>button</a> 
+<i class="material-icons">backup</i>
+<a class="waves-effect waves-light btn-small"><i class="material-icons">backup</i></a> -->
+<a href="{% url 'post_new' %}" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">backup</i></a>
+
+          
+    <table class="centered striped">
+        <thead>
+          <tr>
+              <th>ID</th>
+              <th>Autor</th>
+              <th>Data de Criação</th>
+              <th>Título</th>
+              <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for post in posts %}
+          <tr>
+            <td>{{post.pk}}</td>
+            <td>{{post.author}}</td>
+            <td>{{post.created_date}}</td>
+            <td>{{post.title}}</td>
+            <td>
+                <a href="{% url 'post_edit' post.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
+                <a href="{% url 'teste_delete' post.pk %}" class="btn-floating btn-small waves-effect waves-light red"title= Excluir><i class="material-icons">delete</i></a>
+            <!--href="{% url 'post_delete' post.pk %}"-->
+
+            </td>
+          </tr>
+        {% endfor %}
+        
+        </tbody>
+        
+      </table>
+            
+
+</body>
+</html>
