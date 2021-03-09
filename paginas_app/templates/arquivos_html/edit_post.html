@@ -1,9 +1,12 @@
 
 {% extends 'arquivos_html/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block conteudo %}
     <h2>Edição de post !</h2>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{form.as_p}}
+        {{form|crispy}}<!--.as_p é padrão para mostrar em parágrafos-->
         <button type="submit" class="btn-default">Salvar</button>
     </form>
 {% endblock %}
+

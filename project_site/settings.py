@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'paginas_app',
+    'crispy_forms',
 ]
+#tratamento de formulários no django
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +126,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ #este trecho adiciona css no projeto
     os.path.join(BASE_DIR,'static')    
 ]
+
+
