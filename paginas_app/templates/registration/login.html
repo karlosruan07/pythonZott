@@ -2,20 +2,25 @@
 {% extends 'arquivos_html/base.html' %}
 
 {% load crispy_forms_tags %}
+{% block conteudo %}
 
-    
-<h1>Template do arquivos HTML</h1>
+
+{% if user.is_authenticated %}
+<p>Você não tem permissão para essa ação. Houve um problema com a requisição.</p>
+
+{% else %}
+
+<h1>Template do registrationnn</h1>    
+
     <form method="POST" class="post-form"> {% csrf_token %}
         {{form|crispy}}
-        <input type="text" name="username" id="">
-        <input type="password" name="password" id="">
         
         <button type="submit">Enviar</button>
     </form>
-
+{% endif %}
     <!--<form method="POST" class="post-form">{% csrf_token %}
         {{form|crispy}}   .as_p é padrão para mostrar em parágrafos
         <button type="submit" class="btn-default">Salvar</button>
     </form>-->
 
-{% endblock conteudo %}
+{% endblock%}

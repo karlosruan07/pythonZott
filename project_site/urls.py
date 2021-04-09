@@ -19,5 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('paginas_app.urls')), #AQUI SE IMPORTA AS TODAS URL QUE SERÃO CRIADAS NESSE ARQUIVO
-    #path('teste2', include('paginas_app.urls')),
+    #path('teste/', include('login_app.urls')),
+    
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

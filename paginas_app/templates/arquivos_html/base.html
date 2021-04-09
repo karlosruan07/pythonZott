@@ -22,25 +22,7 @@
 
 </head>
 <body>
-    <!--<nav>
-        <div class="nav-wrapper">
-          <a href="#!" class="brand-logo">Logo</a>
-          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html">Home</a></li>
-            <li><a href="badges.html">Registros</a></li>
-            <li><a href="collapsible.html">Sobre</a></li>
-            <li><a href="mobile.html">Login</a></li>
-          </ul>
-        </div>
-      </nav>
     
-      <ul class="sidenav" id="mobile-demo">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
-      </ul> -->
 
 
     {% block menu %}
@@ -62,29 +44,13 @@
                 <!-- Inicia uma lista -->
 
                 <li>
-                    <a href="{% url 'lista_post' %}" class="nav-link">Home</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
+                    <a href="#" class="nav-link">Home</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
                 </li>
 
                 <!-- O # siginifica que não linka para lugar nenhum -->
 
 
 
-                <!-- <li class="dropdown">
-                    <a  href="#"
-                        class="nav-link dropdown-toggle"
-                        data-target="dropdown"
-                    >Gerenciar Hospitais</a>
-
-                        <ul class="dropdown">
-                            
-                                <li><a href="#" class=" dropdown-item">Inserir Hospitais</a></li>
-                                    <li class="dropdown-divider" ></li>
-                                <li><a href="" class="dropdown-item" >Editar Hospitais</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a href="" class="dropdown-item" >Excluir Hospitais</a></li>
-                                
-                        </ul>
-                </li> -->
 
                 
                     <a
@@ -102,7 +68,7 @@
 
                 <li>
                     <a
-                        href=" {% url 'login_sistema' %} "
+                        href="#"
                         class="nav-link"
                     >Login</a> <!--É ASSIM QUE SE LINKA UMA ROTA NO DJANGO !-->
                 </li>
@@ -113,16 +79,23 @@
     <!-- Finaliza o menu -->
     {% endblock %}
 
-    <a href="#"> <img id="img" src="{% static 'img/django.png' %}" width="200" alt=""></a>
+    <a href="{% url 'lista_post' %}"> <img id="img" src="{% static 'img/django.png' %}" width="200" alt=""></a>
 
-    {% block destaque %}
-    <div class="bg-secundary">
-        Bloco de Destaque !
-    </div>  
+    {% block itens %}
+    {% if request.user.is_authenticated %} <!--Verifica se o user está autenticado  | request.user.is_anonymous => verifica se o usuário não está logado. -->
+   <h1>{{request.user}}</h1>
+   <a href="{% url 'registrar' %}">Registar</a><br>
+    <a href="{% url 'logout' %}">Logoutt</a><br>
+    <a href="{% url 'change_password' %}">change password</a><br>
+    <a href="{% url 'reset_password' %}">Esqueceu a senha ?</a><br>
+    <a href="{% url 'lista_post' %}">Materias</a> <br>
+    <a href="{% url 'post_new' %}" class="btn-floating btn-large waves-effect waves-light blue mt-2 ml-2 "><i class="material-icons">backup</i></a>
+    <a href="{% url 'nova_prova' %}" class="btn-floating btn-large waves-effect waves-light red mt-2 ml-2 "><i class="material-icons">add</i></a>
+    <a href="{% url 'nova_materia_2' %}" class="btn-floating btn-large waves-effect waves-light green mt-2 ml-2 "><i class="material-icons">add</i></a>
+    {% endif %}
+
     {% endblock %}
 
-    
-    <div class="container"> <!--Recomendado dexar a tag django dentro dq div para não escrever ela novamente.-->
         {% block conteudo %}
         <h1>Conteúdo principal !</h1>
         <a href="#"><input type="button" value="Clik Aqui ! "></a>

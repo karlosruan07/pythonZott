@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'paginas_app',
+    'login_app',
     'crispy_forms',
 ]
 #tratamento de formulários no django
@@ -126,5 +127,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ #este trecho adiciona css no projeto
     os.path.join(BASE_DIR,'static')    
 ]
+
+#constantes para autenticação
+LOGIN_REDIRECT_URL = 'lista_post' #DEPOIS DE SE LOGAR O USUÁRIO IRÁ IR PARA lista_post
+LOGOUT_REDIRECT_URL = 'login'#depois de terminar a seção ele é redirecionado para o login
+LOGIN_URL = 'login'  #login do sistema
 
 

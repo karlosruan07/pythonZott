@@ -4,9 +4,18 @@
 {% block conteudo %}
 
 {% if request.user.is_authenticated %} <!--Verifica se o user está autenticado  | request.user.is_anonymous => verifica se o usuário não está logado. -->
-    <a href="{% url 'logout_sistema' %}">Logout</a>
+   <h1>{{request.user}}</h1>
+    <a href="{% url 'logout' %}">Logout</a><br>
+    <a href="{% url 'change_password' %}">change password</a><br>
+    <a href="{% url 'reset_password' %}">Esqueceu a senha ?</a><br>
+    <a href="{% url 'materias' %}">Materias</a> <br>
     <a href="{% url 'post_new' %}" class="btn-floating btn-large waves-effect waves-light blue mt-2 ml-2 "><i class="material-icons">backup</i></a>
+    <a href="{% url 'nova_prova' %}" class="btn-floating btn-large waves-effect waves-light red mt-2 ml-2 "><i class="material-icons">add</i></a>
+    <a href="{% url 'nova_materia' %}" class="btn-floating btn-large waves-effect waves-light green mt-2 ml-2 "><i class="material-icons">add</i></a>
     
+    
+
+
     {% endif %}
           
     <table class="centered striped">
@@ -29,8 +38,8 @@
             <td> <a href="{% url 'detalhe_post' post.pk %}">{{post.title}}</a></td>
             <td>
                 <a href="{% url 'post_edit' post.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
-                <a href="{% url 'post_delete_confirm' post.pk %}" class="btn-floating btn-small waves-effect waves-light red mt-1 "title= Excluir><i class="material-icons">delete</i></a>
-            <!--href="{% url 'post_delete' post.pk %}"-->
+                <!-- <a href="{% url 'post_delete_confirm' post.pk %}" class="btn-floating btn-small waves-effect waves-light red mt-1 "title= Excluir><i class="material-icons">delete</i></a> -->
+            
 
             </td>
           </tr>

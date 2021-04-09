@@ -1,0 +1,26 @@
+
+
+{% extends 'arquivos_html/base.html' %}
+
+{% block titulo %}
+    <title>novo_post</title>
+{% endblock %}
+
+
+{% block conteudo %}
+    <h1>Novo Post !</h1>
+    <p>Todos os campos devem ser preenchidos !</p>
+
+    <hr>
+    <h1>{{request.user}}</h1>
+    <form action="" method="POST">{% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Cadastrarr</button>
+    </form>
+
+{% endblock %}
+
+
+{% block destaque %}
+                        <!--Para apagar o bloco de destaque, então é só deixar essa tag em branco aqui-->
+{% endblock %}

@@ -1,0 +1,41 @@
+
+{% extends 'arquivos_html/base.html' %}
+{% load static %}
+
+
+
+
+{% block conteudo %}
+<table class="centered striped">
+    <thead>
+      <tr>
+          <th>ID</th>
+          <th>Autor</th>
+          <th>Materia</th>
+          <th>Nota</th>
+          <th>Descrição</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    {% for post in posts %}
+      <tr>
+        <td>{{post.pk}}</td>
+        <td>{{post.usuario}}</td>
+        <td>{{post.nome}}</td>
+        <td>{{post.nota}}</td>
+        <td>{{post.descricao}}</td>
+
+        <td>
+          <a href="{% url 'edit_materia' post.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
+          <a href="{% url 'postConfirmDelete' post.pk %}" class="btn-floating btn-small waves-effect waves-light red mt-1 "title= Excluir><i class="material-icons">delete</i></a>
+
+      </td>
+
+      </tr>
+    {% endfor %}
+    
+    </tbody>
+    
+  </table>
+  {% endblock %}

@@ -1,0 +1,21 @@
+
+{% extends 'arquivos_html/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block conteudo %}
+
+    <h2>Autenticação/xxx !</h2>
+<hr>
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            
+            <form method="POST" class="post-form">{% csrf_token %}
+                {{form|crispy}}<!--.as_p é padrão para mostrar em parágrafos-->
+                <button type="submit" class="btn-default">Entrar</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+
