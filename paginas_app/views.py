@@ -2,9 +2,9 @@
 from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
 from django.http import HttpResponse
 from urllib import request
-from .forms import Postform, PostMateria, Prova, User_create #ESTA É A CLASSE QUE FOI CRIADA LÁ NO ARQUIVO forms.py
+from .forms import Postform, PostMateria, Postprova, User_create #ESTA É A CLASSE QUE FOI CRIADA LÁ NO ARQUIVO forms.py
 from django.utils import timezone
-from .models import Post, Login_sistema, Materia
+from .models import Post, Login_sistema, Materia, Prova
 
 from django.contrib.auth import authenticate, login, logout #Estas bibliotecas são responsáveis pelos logins;
 from django.contrib.auth.decorators import login_required  #biblioteca para verificar se um user está autenticado;
@@ -20,7 +20,7 @@ from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
 
 ####### Cadastro de usuários  ########
-from django.contrib.auth.models import User #bibliotecas que cuidam de criar usuer e super users
+from django.contrib.auth.models import User, Group #bibliotecas que cuidam de criar usuer e super users
 
     
 def sobre(request):
@@ -37,16 +37,6 @@ def detalhe_post(request,pk):
 
 @login_required(login_url='login_sistema', redirect_field_name='meu_redirecionamento')
 
-#def post_delete(request, pk):
-# post = get_object_or_404(Post, pk=pk)
-# post.delete()
-#return redirect('lista_post')
-
-#@login_required(login_url='login_sistema', redirect_field_name='Meu_redirecionamento')
-
-#def xxxxxx(request, pk):
-#pk = pk
-# return render(request, 'arquivos_html/teste2.html',{'pk':pk} )
 
 @login_required(login_url='login_sistema', redirect_field_name='meu_redirecionamento')
 def post_new(request):    
@@ -97,17 +87,18 @@ def teste2(request):
     """
     return render(request, 'arquivos_html/teste2.html')
 
-def create_user(request):
-    """Esta função cria um usuário comum"""
-    user = User.objects.create_user('user_teste','user_teste@gmail.com', 'user_teste_password')
+def create_user_comum(request):
+    """Esta função cria um usuário comum
+    """
+    user = User.objects.create_user('user_comum1','user_comum1@gmail.com', 'Ruan010101')
+    return redirect('lista_post')
     
-    user.save()
-    #return render(request,'arquivos_html/create_user.html')
     
 def create_super_user(request):
     """Esta função cria um super_usuario"""
-    super_user = User.objects.create_superuser('super_user','superuser@gmail.com','super_user_password')
+    super_user = User.objects.create_superuser('super_user','super_user@gmail.com','super_user_password')
     super_user.save()
+    return redirect('lista_post')
     
 def alter_password(request):
     """Esta função altera a senha de um usuário"""
@@ -154,8 +145,7 @@ def logout_sistema(request):
     logout(request)
     return redirect('login_sistema')
 
-class Teste_class(GroupRequiredMixin,TemplateView):
-    group_required = u'administrador'
+class Teste_class(TemplateView):
     template_name = 'arquivos_html/teste_class.html'
     
 class xxxxxx(CreateView):
@@ -172,7 +162,7 @@ class xxxxxx(CreateView):
     
     
     
-def nova_prova(request):
+def xxx(request):
     if request.method == "POST":
         form = Postprova(request.POST)
         
@@ -222,20 +212,22 @@ def lista_post(request):
 
 def post_edit_materia(request, pk): #função para editar um post
      
-     post = get_object_or_404(Materia, pk=pk, usuario=request.user)#usuario=request.user é um filtro para que apenas o user autenticado faça alterações no objeto requisitado
-     if request.method == "POST":
-         form = PostMateria(request.POST, instance=post)
-         if form.is_valid():
-             post = form.save(commit=False)
+    post = get_object_or_404(Materia, pk=pk, usuario=request.user)#usuario=request.user é um filtro para que apenas o user autenticado faça alterações no objeto requisitado
+    
+    if request.method == "POST":
+        form = PostMateria(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
              
-             post.author = request.user
-             post.published_date = timezone.now()
+            post.author = request.user
+            post.published_date = timezone.now()
              
-             post.save()
-             return redirect('detalhe_post', pk=post.pk)
-     else:
-         form = PostMateria(instance=post)
-     return render(request, 'arquivos_html/edit_post.html', {'form': form})
+            post.save()
+            return redirect('lista_post')
+    else:
+        form = PostMateria(instance=post)
+    
+    return render(request, 'arquivos_html/edit_post.html', {'form': form})
 
 
 @login_required(login_url='login_sistema', redirect_field_name='Meu_redirecionamento')
@@ -269,13 +261,16 @@ class Nova_materia2(CreateView):
 
 
 class Edit_materia(UpdateView):
+    
     template_name = 'arquivos_html/form.html'
     model = Materia
     fields = ['nome', 'nota', 'descricao']
     success_url = reverse_lazy('lista_post')
     
-    def get_object(self, queryset=None):
-        self.object = get_object_or_404(Materia, pk=self.kwargs['pk'], usuario=self.request.user)
+    
+    """def get_object(self, queryset=None):
+        #self.object = Materia.objects.get(pk=self.kwargs['pk'], usuario=self.request.user)
+        self.object = get_object_or_404(Materia, pk=self.kwargs['pk'], usuario=self.request.user)"""
         
     
     def get_context_data(self, *args, **kwargs):
@@ -288,32 +283,22 @@ class Edit_materia(UpdateView):
 class List_materias(ListView):
     template_name = 'arquivos_html/materias.html'
     model = Materia
+    
+    def get_object(self, queryset=None):
+        self.object = Materia.objects.get(pk=self.kwargs['pk'], usuario=self.request.user)
+        #self.object = get_object_or_404(Materia, pk=self.kwargs['pk'], usuario=self.request.user)
 
-class Nova_prova(CreateView):
-    template_name = 'arquivos_html/form.html'
-    model = Prova
-    fields = ['materia', 'arquivo']
-    success_url = reverse_lazy('lista_post')
-    
-    def form_valid(self, form):
-        form.instance.data = self.timezone.now()
-        url = super().form_valid(form)
-        return url
-    
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['titulo_pag'] = "Criar Prova"
-        return context
-    
-        
-class List_prova(ListView):
-    template_name = 'arquivos_html/lista_prova.html'
-    model = Prova
-    
 class Create_user(CreateView):
     template_name = 'arquivos_html/form.html'
     success_url = reverse_lazy('lista_post')
-    form_class = User_create
+    form_class = User_create #classe que foi criada no arquivo forms.py
+    
+    def form_valid(self, form):#verifica se o formulário é válido
+        grupo = get_object_or_404(Group, name='superuser')#pega o grupo superuser
+        url = super().form_valid(form)#se pegar o grupo certo e o formulário estiver certo então salva por enquanto
+        self.object.groups.add(grupo)# adiciona ao grupo escolhido, passado como parâmetro na variável grupo
+        self.object.save()#salva tudo no banco de dados.
+        return url
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -322,6 +307,75 @@ class Create_user(CreateView):
         return context
 
 
+#### PROVAS 
+class Nova_prova(CreateView):
+    template_name = 'arquivos_html/form-upload.html'
+    model = Prova
+    fields = ['materia', 'arquivo']
+    success_url = reverse_lazy('lista_prova')
+    
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)
+        return url        
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['titulo_pag'] = "Criar Prova"
+        context['botao'] = "Enviar"
+        return context
+    
+        
+class Lista_prova(ListView):
+    template_name = 'arquivos_html/lista_prova.html'
+    model = Prova
+    
+
+class Edit_prova(UpdateView):
+    template_name = 'arquivos_html/edit_prova.html'
+    model = Prova
+    fields = ['materia', 'arquivo']
+    success_url = reverse_lazy('lista_prova')
 
 
+def confirmdeleteprova(request, pk):
+    post = get_object_or_404(Prova, pk=pk, usuario=request.user)#usuario=request.user é um parâmetro para verificar se a requisição faz parte de um post do user autenticado.
+    pk = pk
+    return render(request, 'arquivos_html/delete_confirm.html',{'pk':pk})
+
+def deleteprova(request, pk):
+    post = get_object_or_404(Prova, pk=pk, usuario=request.user)
+    post.delete()
+    return redirect('lista_prova')
+
+def nova_prova(request):
+    if request.method == "POST":
+        form = Postprova(request.POST)
+        
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.materia = request.POST['materia']
+            post.arquivo = request.POST['arquivo']
+            
+            post.save()
+            return redirect('lista_post')
+    else:
+        form = Postprova()
+        titulo2 = 'Criar provaaaaaaa'
+    return render(request, 'arquivos_html/form-upload.html',{'form':form})
+                    
+            
+def edit_prova(request, pk):
+    post = get_object_or_404(Prova, pk=pk)
+    
+    if request.method == "POST":
+        form = Prova(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            post.save()
+            return redirect('lista_post')
+    else:
+        form = Prova(instance=post)
+    return render(request, 'arquivos_html/edit_post.html', {'form': form})
 

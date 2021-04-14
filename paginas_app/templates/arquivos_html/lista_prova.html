@@ -1,20 +1,40 @@
 
-<!-- {% extends 'arquivos_html/base.html' %}
+{% extends 'arquivos_html/base.html' %}
+{% load static %}
 
-{% block menu %} -->
+{% block conteudo %}
+    <title>{{ titulo_pag }}</title>
 
-{% for object in object_list %}
-    <div class="post">
-        <div class="date">
-            <h2 id="autor"> Autor: {{object.materia}} </h2>
-                <h4>Publicado em : {{post.created_date}}</h4>
-                    </div>
-                    <h4><a href="{% url 'detalhe_post' pk=post.pk %}">{{ post.title }}</a></h4> <!--url detail cria uma url automaticamente, o pk é relacionado a chave primaria -->
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-    {% endfor %}
+    <table class="centered striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Materia</th>
+                <th>Arquivo</th>
+            </tr>
+        </thead>
+    
+    <tbody>
 
- {% endblock %}
+        {% for object in object_list %}
+
+        <tr>
+            <td>{{object.pk}}</td>
+            <td>{{object.materia}}</td>
+            <td><a href="{{ object.arquivo.url }}">Visualizar</a></td>
+            <td>
+                <a href="{% url 'edit_prova' object.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
+                <a href="{% url 'confirmdeleteprova' object.pk %}" class="btn-floating btn-small waves-effect waves-light red mt-1 "title= Excluir><i class="material-icons">delete</i></a>
+            </td>
+
+        </tr>
+    
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
 
 
  

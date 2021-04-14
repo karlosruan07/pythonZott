@@ -38,10 +38,8 @@ class Post(models.Model):
         return "{}".format(self.title)
     
 class Prova(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.PROTECT)
     materia = models.ForeignKey(Materia, on_delete=models.PROTECT)
-    data = models.DateTimeField()
-    arquivo = models.FileField(upload_to='')
+    arquivo = models.FileField(upload_to='pdf/')
     
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     

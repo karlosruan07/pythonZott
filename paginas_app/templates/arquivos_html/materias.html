@@ -27,7 +27,7 @@
         <td>{{post.descricao}}</td>
 
         <td>
-          <a href="{% url 'edit_materia' post.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
+          <a href="{% url 'post_edit_materia' post.pk %}" class="waves-effect waves-light btn-small" title=Editar> <i class="material-icons">edit</i> Editar</a> <!--Para fazer qualquer modificação no bamco tem que passar o id-->
           <a href="{% url 'postConfirmDelete' post.pk %}" class="btn-floating btn-small waves-effect waves-light red mt-1 "title= Excluir><i class="material-icons">delete</i></a>
 
       </td>

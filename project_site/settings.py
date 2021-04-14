@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'paginas_app',
     'login_app',
     'crispy_forms',
+    'django_cleanup.apps.CleanupConfig',
 ]
 #tratamento de formulários no django
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -132,5 +133,9 @@ STATICFILES_DIRS = [ #este trecho adiciona css no projeto
 LOGIN_REDIRECT_URL = 'lista_post' #DEPOIS DE SE LOGAR O USUÁRIO IRÁ IR PARA lista_post
 LOGOUT_REDIRECT_URL = 'login'#depois de terminar a seção ele é redirecionado para o login
 LOGIN_URL = 'login'  #login do sistema
+
+#aquivos enviados pelo usuário
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")#irá dizer dizer para o django que a pasta se encontra na raiz do projeto
+MEDIA_URL = "/uploads/"#irá criar as url para os arquivos.
 
 

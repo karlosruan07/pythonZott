@@ -3,10 +3,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block conteudo %}
-    <h2>Edição de post !</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <h2>Edições</h2>
+    <form method="POST" enctype="multipart/form-data" class="post-form">{% csrf_token %}
         {{form|crispy}}<!--.as_p é padrão para mostrar em parágrafos-->
-        <button type="submit" class="btn-default">Salvar</button>
+        <button type="submit" class="btn-default">
+            Enviar
+        </button>
     </form>
 {% endblock %}
 
