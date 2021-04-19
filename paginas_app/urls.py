@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from paginas_app.views import teste2, sobre, registros, login_sistema, post_new, detalhe_post, post_edit, lista_post, listar2, Create_user, create_super_user, alter_password, authentication, logout_sistema, nova_materia, post_edit_materia, postConfirmDelete, postMateriaDelete, Nova_materia2, List_materias, Edit_materia, Create_user, Lista_prova, Nova_prova, confirmdeleteprova, deleteprova
+from paginas_app.views import teste2, sobre, registros, login_sistema, post_new, detalhe_post, lista_post, listar2, Create_user, create_super_user, alter_password, authentication, logout_sistema, nova_materia, post_edit_materia, postConfirmDelete, postMateriaDelete, Nova_materia2, List_materias, Create_user, Lista_prova, Nova_prova, confirmdeleteprova, deleteprova, PerfilUpdate, Edit_materia, Edit_prova
 
 from django.contrib.auth import views as auth_views #aqui estou renomeando a view para auth_views, essa view é a base para mudar a senha, fazer login, logout ...etc.
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name='arquivos_html/reset_password.html'), name='reset_password'),
     path('create_user/', views.Create_user.as_view(), name='create_user'),
     path('registrar/', views.Create_user.as_view(), name='registrar'),
+    path('atualizar_dados/', views.PerfilUpdate.as_view(), name='atualizar_dados'),
     
     #URLs DA DAS MATERIAS
     path('nova_materia/', views.nova_materia, name='nova_materia'),
@@ -44,7 +45,7 @@ urlpatterns = [
     
     path('nova_materia_2/',views.Nova_materia2.as_view(), name='nova_materia_2'),
     path('lista_materias/', views.List_materias.as_view(), name='List_materias'),
-    path('edit_materia/<int:pk>/', views.Edit_materia.as_view(), name='edit_materia'),
+    path('edit_materia/<int:pk>/', views.Edit_materia.as_view(), name='edit_materia'),#usando classes
    
     
     ###### URLs das provas. #######

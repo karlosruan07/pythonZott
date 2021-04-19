@@ -2,15 +2,15 @@
 
 
 {% extends 'arquivos_html/base.html' %}
-{% load static %}
+
 {% load crispy_forms_tags %}
 {% block titulo %}
-    <title>editar</title>
+    <title>Atualizar dados !</title>
 {% endblock %}
 
 
 {% block conteudo %}
-    <h1>{{ titulo_pag }}</h1>
+    <h1>Atualizar dados !</h1>
 
     <p>Todos os campos devem ser preenchidos !</p>
     
@@ -21,7 +21,7 @@
         
         
         <button type="submit">
-            {{botao}}
+            Atualizar
             
         </button>
     </form>
@@ -32,14 +32,3 @@
 {% block destaque %}
                         <!--Para apagar o bloco de destaque, então é só deixar essa tag em branco aqui-->
 {% endblock %}
-
-{% block scripts %}
-    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
-
-    <script>
-        
-    </script>
-
-{% endblock %}
-
-

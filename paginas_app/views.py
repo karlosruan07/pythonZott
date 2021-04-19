@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from urllib import request
 from .forms import Postform, PostMateria, Postprova, User_create #ESTA É A CLASSE QUE FOI CRIADA LÁ NO ARQUIVO forms.py
 from django.utils import timezone
-from .models import Post, Login_sistema, Materia, Prova
+from .models import Post, Login_sistema, Materia, Prova, Perfil
 
 from django.contrib.auth import authenticate, login, logout #Estas bibliotecas são responsáveis pelos logins;
 from django.contrib.auth.decorators import login_required  #biblioteca para verificar se um user está autenticado;
@@ -193,10 +193,6 @@ def nova_materia(request):
             post.nota = request.POST['nota']
             post.descricao = request.POST['descricao']
             post.usuario = request.user
-            """def form_valid(self, form):
-                form.instance.usuario = self.request.user
-                url = super().form_valid(form)
-                return url"""
             
             post.save()
             return redirect('lista_post')
@@ -227,7 +223,7 @@ def post_edit_materia(request, pk): #função para editar um post
     else:
         form = PostMateria(instance=post)
     
-    return render(request, 'arquivos_html/edit_post.html', {'form': form})
+    return render(request, 'arquivos_html/materias.html', {'form': form})
 
 
 @login_required(login_url='login_sistema', redirect_field_name='Meu_redirecionamento')
@@ -298,6 +294,9 @@ class Create_user(CreateView):
         url = super().form_valid(form)#se pegar o grupo certo e o formulário estiver certo então salva por enquanto
         self.object.groups.add(grupo)# adiciona ao grupo escolhido, passado como parâmetro na variável grupo
         self.object.save()#salva tudo no banco de dados.
+        
+        Perfil.objects.create(usuario=self.object)
+        
         return url
 
     def get_context_data(self, *args, **kwargs):
@@ -305,7 +304,19 @@ class Create_user(CreateView):
         context['titulo_pag'] = "Cadastrar usuário"
         context['botao'] = "Cadastrar"
         return context
+    
+class PerfilUpdate(UpdateView):
+    template_name = 'arquivos_html/form-update-dados.html'
+    model = Perfil #classe lá dos models.py
+    fields = ['nome_completo', 'cpf', 'telefone']
+    success_url = reverse_lazy('lista_post')
+    
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(Perfil, usuario=self.request.user)#busca os dados do usuário que está logado.
+        return self.object
 
+
+    
 
 #### PROVAS 
 class Nova_prova(CreateView):
@@ -325,17 +336,21 @@ class Nova_prova(CreateView):
         context['botao'] = "Enviar"
         return context
     
-        
+    
 class Lista_prova(ListView):
+    """com essa listagem leva um objeto chamado object_list que será colocado dentro do for para mostrar os dados"""
     template_name = 'arquivos_html/lista_prova.html'
     model = Prova
-    
+
 
 class Edit_prova(UpdateView):
     template_name = 'arquivos_html/edit_prova.html'
     model = Prova
     fields = ['materia', 'arquivo']
     success_url = reverse_lazy('lista_prova')
+
+
+
 
 
 def confirmdeleteprova(request, pk):
@@ -347,22 +362,6 @@ def deleteprova(request, pk):
     post = get_object_or_404(Prova, pk=pk, usuario=request.user)
     post.delete()
     return redirect('lista_prova')
-
-def nova_prova(request):
-    if request.method == "POST":
-        form = Postprova(request.POST)
-        
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.materia = request.POST['materia']
-            post.arquivo = request.POST['arquivo']
-            
-            post.save()
-            return redirect('lista_post')
-    else:
-        form = Postprova()
-        titulo2 = 'Criar provaaaaaaa'
-    return render(request, 'arquivos_html/form-upload.html',{'form':form})
                     
             
 def edit_prova(request, pk):

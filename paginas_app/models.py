@@ -40,7 +40,6 @@ class Post(models.Model):
 class Prova(models.Model):
     materia = models.ForeignKey(Materia, on_delete=models.PROTECT)
     arquivo = models.FileField(upload_to='pdf/')
-    
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
     
     
@@ -50,4 +49,12 @@ class Prova(models.Model):
 class Login_sistema(models.Model):
     username = models.TextField()
     password = models.TextField()
+    
+#Criação de perfil
+class Perfil(models.Model):
+    nome_completo = models.CharField(max_length=50, null=True)
+    cpf = models.CharField(max_length=11, null=True, verbose_name='CPF')
+    telefone = models.CharField(max_length=16, null=True)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    
     
