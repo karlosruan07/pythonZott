@@ -17,7 +17,6 @@ from django.views.generic import ListView, TemplateView
 from django.urls import reverse_lazy
 
 ####### permissões para grupos ######
-from braces.views import GroupRequiredMixin
 
 ####### Cadastro de usuários  ########
 from django.contrib.auth.models import User, Group #bibliotecas que cuidam de criar usuer e super users
